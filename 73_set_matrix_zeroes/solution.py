@@ -2,25 +2,33 @@ from typing import List
 
 
 class Solution:
-    def setZeroes(self, matrix: List[List[int]]) -> None:
-        """
-        Do not return anything, modify matrix in-place instead.
-        """
-        n, m = len(matrix), len(matrix[0])
-        u_row, u_col = set(), set()
-        for i in range(n):
-            for j in range(m):
-                if matrix[i][j] == 0:
-                    u_row.add(i)
-                    u_col.add(j)
+  def setZeroes(self, matrix: List[List[int]]) -> None:
+    ROWS, COLS = len(matrix), len(matrix[0])
+    unique_rows, unique_cols = set(), set()
 
-        for row in u_row:
-            for i in range(m):
-                matrix[row][i] = 0
+    """
+    Finding the unique set of rows and cols
+    where 0 is present
+    """
+    for i in range(ROWS):
+      for j in range(COLS):
+        if matrix[i][j] == 0:
+          unique_rows.add(i)
+          unique_cols.add(j)
+    
+    """
+    Making all the rows as 0
+    """
+    for row in unique_rows:
+      for col in range(COLS):
+        matrix[row][col] = 0
 
-        for col in u_col:
-            for i in range(n):
-                matrix[i][col] = 0
+    """
+    Making all the cols as 0
+    """
+    for col in unique_cols:
+      for row in range(ROWS):
+        matrix[row][col] = 0
 
 
 matrix = [[2, 4, 3], [1, 0, 0]]
